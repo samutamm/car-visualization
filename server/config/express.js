@@ -9,11 +9,6 @@ module.exports = function() {
     extended: true
   }));
   app.use(bodyParser.json());
-  app.set('views', './server/app/views');
-  app.set('view engine', 'ejs');
   app.use(express.static('public'));
-
-  require('../app/routes/Broadcasting.route')(app);
-
   return app;
 }
