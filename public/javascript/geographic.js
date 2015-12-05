@@ -1,4 +1,12 @@
 var continueMoving1 = true;
+var continueMoving2 = true;
+var continueMoving3 = true;
+
+var up = false;
+var down = false;
+var left = false;
+var right = false;
+
 
 window.requestAnimFrame = (function(callback) {
   return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
@@ -42,24 +50,25 @@ function drawRectangle(myRectangle, context) {
   context.stroke();
 }
 function animate1(myRectangle, canvas, context) {
-  console.log("animate1");
-  if(continueMoving1) {
-    var newX = myRectangle.x - 3;
-    var newY = myRectangle.y - 3;
-    var minimumX = 10;
-    var minimumY = 60;
-    if(newX > minimumX) {
-      myRectangle.x = newX;
+  if (!continueMoving1) {
+    return;
+  }
+  var newX = myRectangle.x - 3;
+  var newY = myRectangle.y - 3;
+  var minimumX = 10;
+  var minimumY = 60;
+  if(newX > minimumX) {
+    myRectangle.x = newX;
+  } else {
+    if (newY > minimumY) {
+      myRectangle.y = newY;
     } else {
-      if (newY > minimumY) {
-        myRectangle.y = newY;
-      } else {
-        continueMoving1 = false;
-        console.log("Stopped!");
-        return;
-      }
+      continueMoving1 = false;
+      console.log("Stopped!");
+      return;
     }
   }
+
   // clear
   context.clearRect(0, 0, canvas.width, canvas.height);
   drawRectangle(myRectangle, context);
@@ -67,19 +76,39 @@ function animate1(myRectangle, canvas, context) {
   drawPoints([redDest1, redDest2], context);
   drawPoints(points, context);
   // request new frame
-  if(continueMoving1) {
-    requestAnimFrame(function() {
-      animate1(myRectangle, canvas, context);
-    });
-  }
+  requestAnimFrame(function() {
+    animate1(myRectangle, canvas, context);
+  });
 }
+
 function animate2(myRectangle, canvas, context) {
+    if(!continueMoving2) {
+      return;
+    }
     var newX = myRectangle.x + 3;
     var newY = myRectangle.y + 3;
-    var maxX = 100;
+    var maxX = 360;
     var maxY = 165;
-    if(newY < maxY) {
+    var minY = 130;
+    if(newY < maxY && down) {
       myRectangle.y = newY;
+    } else {
+      down = false;
+      right = true;
+      if (newX < maxX) {
+        myRectangle.x = newX;
+      } else {
+        right = false;
+        up = true;
+        var newY = myRectangle.y - 3;
+        if (newY > minY) {
+          myRectangle.y = newY;
+        } else {
+          continueMoving2 = false;
+          console.log("Stopped!");
+          return;
+        }
+      }
     }
   // clear
   context.clearRect(0, 0, canvas.width, canvas.height);
@@ -93,11 +122,64 @@ function animate2(myRectangle, canvas, context) {
   });
 }
 
+function animate3(myRectangle, canvas, context) {
+  if (!continueMoving3) {
+    return;
+  }
+  var newY = myRectangle.y + 3;
+  var maxY = 165;
+  var maxX = 560;
+  if(newY < maxY && down) {
+    myRectangle.y = newY;
+  } else {
+    down = false;
+    right = true;
+    var newX = myRectangle.x + 3;
+    if (newX < maxX && !left) {
+      myRectangle.x = newX;
+    } else {
+      right = false;
+      up = true;
+      var newY = myRectangle.y - 3;
+      var minY = 15;
+      if (newY > minY) {
+        myRectangle.y = newY;
+      } else {
+        up = false;
+        left = true;
+        var newX = myRectangle.x - 3;
+        var minX = 275;
+        if(newX > minX) {
+          myRectangle.x = newX;
+        } else {
+          continueMoving3 = false;
+          console.log("Stopped!");
+          return;
+        }
+      }
+    }
+  }
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  drawRectangle(myRectangle, context);
+  drawRoute(lines, context);
+  drawPoints([redDest1, redDest2], context);
+  drawPoints(points, context);
+  // request new frame
+  requestAnimFrame(function() {
+    animate3(myRectangle, canvas, context);
+  });
+}
+
 function startStop() {
   animate1(myRectangle, canvas, context);
 }
 function startStop2() {
+  down = true;
   animate2(myRectangle, canvas, context);
+}
+function startStop3() {
+  down = true;
+  animate3(myRectangle, canvas, context);
 }
 
 var canvas = document.getElementById('myCanvas');
@@ -220,7 +302,7 @@ drawRoute(lines, context);
 drawPoints([redDest1, redDest2], context);
 drawPoints(points, context);
 // wait one second before starting animation
-setTimeout(function() {
+/*setTimeout(function() {
   var startTime = (new Date()).getTime();
   animate1(myRectangle, canvas, context);
-}, 1000);
+}, 1000); */
