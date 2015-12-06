@@ -67,8 +67,8 @@ function animate1(myRectangle, canvas, context) {
   if (!continueMoving1) {
     return;
   }
-  var newX = myRectangle.x - 3;
-  var newY = myRectangle.y - 3;
+  var newX = myRectangle.x - 5;
+  var newY = myRectangle.y - 5;
   var minimumX = 10;
   var minimumY = 60;
   if(newX > minimumX) {
@@ -99,8 +99,8 @@ function animate2(myRectangle, canvas, context) {
     if(!continueMoving2) {
       return;
     }
-    var newX = myRectangle.x + 3;
-    var newY = myRectangle.y + 3;
+    var newX = myRectangle.x + 5;
+    var newY = myRectangle.y + 5;
     var maxX = 360;
     var maxY = 165;
     var minY = 130;
@@ -114,7 +114,7 @@ function animate2(myRectangle, canvas, context) {
       } else {
         right = false;
         up = true;
-        var newY = myRectangle.y - 3;
+        var newY = myRectangle.y - 5;
         if (newY > minY) {
           myRectangle.y = newY;
         } else {
@@ -140,7 +140,7 @@ function animate3(myRectangle, canvas, context) {
   if (!continueMoving3) {
     return;
   }
-  var newY = myRectangle.y + 3;
+  var newY = myRectangle.y + 5;
   var maxY = 165;
   var maxX = 560;
   if(newY < maxY && down) {
@@ -148,20 +148,20 @@ function animate3(myRectangle, canvas, context) {
   } else {
     down = false;
     right = true;
-    var newX = myRectangle.x + 3;
+    var newX = myRectangle.x + 5;
     if (newX < maxX && !left) {
       myRectangle.x = newX;
     } else {
       right = false;
       up = true;
-      var newY = myRectangle.y - 3;
-      var minY = 15;
+      var newY = myRectangle.y - 5;
+      var minY = 10;
       if (newY > minY) {
         myRectangle.y = newY;
       } else {
         up = false;
         left = true;
-        var newX = myRectangle.x - 3;
+        var newX = myRectangle.x - 5;
         var minX = 275;
         if(newX > minX) {
           myRectangle.x = newX;
@@ -320,8 +320,3 @@ drawRectangle(myRectangle, context);
 drawRoute(lines, context);
 drawPoints([redDest1, redDest2], context);
 drawPoints(points, context);
-// wait one second before starting animation
-/*setTimeout(function() {
-  var startTime = (new Date()).getTime();
-  animate1(myRectangle, canvas, context);
-}, 1000); */

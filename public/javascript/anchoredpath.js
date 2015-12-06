@@ -73,7 +73,7 @@ function animate3(myRectangle, canvas, context) {
   if (!continueMoving3) {
     return;
   }
-  var newY = myRectangle.y + 3;
+  var newY = myRectangle.y + 5;
   var maxY = 165;
   var maxX = 560;
   if(newY < maxY && down) {
@@ -81,20 +81,20 @@ function animate3(myRectangle, canvas, context) {
   } else {
     down = false;
     right = true;
-    var newX = myRectangle.x + 3;
+    var newX = myRectangle.x + 5;
     if (newX < maxX && !left) {
       myRectangle.x = newX;
     } else {
       right = false;
       up = true;
-      var newY = myRectangle.y - 3;
-      var minY = 15;
+      var newY = myRectangle.y - 5;
+      var minY = 10;
       if (newY > minY) {
         myRectangle.y = newY;
       } else {
         up = false;
         left = true;
-        var newX = myRectangle.x - 3;
+        var newX = myRectangle.x - 5;
         var minX = 275;
         if(newX > minX) {
           myRectangle.x = newX;
