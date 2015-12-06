@@ -119,6 +119,13 @@ function animate3(myRectangle, canvas, context) {
 }
 
 function startStop() {
+  up = false;
+  down = false;
+  left = false;
+  right = true;
+  myRectangle.x = 75;
+  myRectangle.y = 165;
+  continueMoving3 = true;
   animate3(myRectangle, canvas, context);
 }
 
