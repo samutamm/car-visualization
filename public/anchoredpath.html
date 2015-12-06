@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <button onclick="anchoredPath()">Anchored path</button>
+    <button onclick="startStop()">Start</button>
+    <canvas id="myCanvas" width="600" height="300"></canvas>
+    <div>
+      <p id="firstRoute"> Path is a set of anchors: <br>
+        {<br>
+          anchor1: {
+            previous: source,
+            current: {...velocity vector...}
+          },<br>
+          anchor2: {
+            previous: anchor1,
+            current: {...velocity vector...}
+          }<br>
+        }<br><br>
+        Green points on the graph.
+      </p>
+    </div>
+    <script src="../javascript/anchoredpath.js"></script>
+  </body>
+</html>
